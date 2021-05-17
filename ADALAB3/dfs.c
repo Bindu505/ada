@@ -1,35 +1,46 @@
 #include<stdio.h>
- 
-void DFS(int);
-int G[10][10],visited[10],n;    
+void dfs(int);
+int a[10][10],vis[10],n,flag=0;
 void main()
 {
-    int i,j;
-    printf("Enter number of vertices:");
-   
-	scanf("%d",&n);
- 
-    
-	printf("\nEnter adjecency matrix of the graph:");
-   
-	for(i=0;i<n;i++)
-       for(j=0;j<n;j++)
-			scanf("%d",&G[i][j]);
- 
-    
-   for(i=0;i<n;i++)
-        visited[i]=0;
- 
-    DFS(0);
-}
- 
-void DFS(int i)
+   int i,j,src;
+   printf("Enter number of vertices:: \n");
+   scanf("%d",&n);
+   printf("Enter adjacency matrix:: \n");
+   for(i=1;i<=n;i++)
+   {
+     for(j=1;j<=n;j++)
+     {
+       scanf("%d", &a[i][j]);
+     }
+  }
+for(i=1;i<=n;i++)
+vis[i]=0;
+printf("Enter source vertex\n");
+scanf("%d",&src);
+
+dfs(src);
+
+for(i=1;i<=n;i++)
 {
-    int j;
-	printf("\n%d",i);
-    visited[i]=1;
-	
-	for(j=0;j<n;j++)
-       if(!visited[j]&&G[i][j]==1)
-            DFS(j);
+    if(vis[i] == 0)
+    {
+        printf("Graph not connected\n");
+        flag=1;
+        break;
+    }
+}
+if(flag==0)
+printf("Graph connected\n");
+}
+void dfs(int v)
+{
+int i;
+vis[v]=1;
+
+   for(i=1;i<=n;i++)
+   {
+        if(a[v][i]==1 && vis[i]==0)
+       dfs(i);
+   }
 }
